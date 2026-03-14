@@ -1,0 +1,2345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NégoFacile – Négociez vos factures et économisez jusqu'à 400€/an</title>
+  <meta name="description" content="Obtenez en 5 minutes un script de négociation personnalisé pour baisser vos factures : assurance auto, habitation, téléphone, internet, énergie. Gratuit, sans inscription.">
+  <meta name="keywords" content="négocier facture, baisser assurance auto, réduire abonnement internet, économiser énergie, script négociation téléphone, NégoFacile France">
+  <meta property="og:title" content="NégoFacile – Votre script de négociation en 5 minutes">
+  <meta property="og:description" content="Répondez à 8 questions, obtenez un script personnalisé pour négocier vos factures. Gratuit.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://negofacile.fr/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NégoFacile – Négociez vos factures en 5 min">
+  <meta name="twitter:description" content="Script de négociation personnalisé pour baisser assurance, téléphone, énergie. Gratuit.">
+  <meta name="twitter:image" content="https://negofacile.fr/og-image.png">
+  <link rel="canonical" href="https://negofacile.fr">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "NégoFacile",
+    "description": "Générateur de scripts de négociation personnalisés pour baisser vos factures en France",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "featureList": ["Script téléphonique personnalisé", "Arguments sur-mesure", "Alternatives concurrentes", "Conseils de timing"]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink:       #1C1917;
+      --ink-soft:  #57534E;
+      --ink-faint: #A8A29E;
+      --cream:     #FAFAF7;
+      --cream-mid: #F5F5F0;
+      --cream-dark:#E8E8E0;
+      --green:     #0D7A55;
+      --green-mid: #15A36E;
+      --green-pale:#E8F5F0;
+      --gold:      #D97706;
+      --gold-pale: #FEF3C7;
+      --red:       #DC2626;
+      --white:     #FFFFFF;
+      --shadow-sm: 0 1px 4px rgba(28,25,23,.06);
+      --shadow-md: 0 4px 20px rgba(28,25,23,.09);
+      --shadow-lg: 0 12px 48px rgba(28,25,23,.12);
+      --r:         14px;
+      --r-sm:      8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Instrument Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* -- HEADER -- */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-dark);
+      padding: 0 20px;
+      position: sticky; top: 0; z-index: 200;
+    }
+    .header-inner {
+      max-width: 760px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 58px;
+    }
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 700; font-size: 1.25rem;
+      color: var(--green);
+      display: flex; align-items: center; gap: 9px;
+      letter-spacing: -.01em;
+    }
+    .logo-dot {
+      width: 8px; height: 8px;
+      background: var(--green-mid); border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50%      { transform: scale(1.4); opacity: .6; }
+    }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .pill {
+      background: var(--green-pale); color: var(--green);
+      font-size: .72rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 99px;
+      letter-spacing: .03em;
+    }
+
+    /* -- TIMING BADGE -- */
+    #timing-badge {
+      display: none;
+      align-items: center; gap: 6px;
+      font-size: .78rem; font-weight: 500;
+      padding: 4px 12px; border-radius: 99px;
+      border: 1.5px solid currentColor;
+    }
+    #timing-badge.good  { color: var(--green); border-color: var(--green); background: var(--green-pale); }
+    #timing-badge.wait  { color: var(--gold);  border-color: var(--gold);  background: var(--gold-pale); }
+
+    /* -- HERO -- */
+    .hero {
+      max-width: 760px; margin: 0 auto;
+      padding: 52px 20px 36px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--green-pale); color: var(--green);
+      font-size: .8rem; font-weight: 600;
+      padding: 5px 14px; border-radius: 99px;
+      margin-bottom: 20px;
+      letter-spacing: .03em;
+    }
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.75rem, 5vw, 2.6rem);
+      font-weight: 700; line-height: 1.18;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+    .hero h1 em {
+      font-style: italic; color: var(--green);
+    }
+    .hero-sub {
+      color: var(--ink-soft); font-size: 1.05rem;
+      max-width: 490px; margin: 0 auto 32px;
+      line-height: 1.65;
+    }
+    .stats-row {
+      display: flex; justify-content: center;
+      gap: 0; flex-wrap: wrap;
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      max-width: 480px; margin: 0 auto;
+    }
+    .stat {
+      flex: 1; min-width: 120px;
+      padding: 18px 12px; text-align: center;
+      border-right: 1px solid var(--cream-dark);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-n {
+      display: block;
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--green); line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-l { font-size: .78rem; color: var(--ink-faint); }
+
+    /* -- PROGRESS -- */
+    #progress-wrap {
+      max-width: 760px; margin: 0 auto;
+      padding: 0 20px 20px;
+      display: none;
+    }
+    #progress-wrap.on { display: block; }
+    .prog-meta {
+      display: flex; justify-content: space-between;
+      font-size: .8rem; color: var(--ink-soft);
+      margin-bottom: 8px;
+    }
+    .prog-bar {
+      height: 5px; background: var(--cream-dark);
+      border-radius: 99px; overflow: hidden;
+    }
+    .prog-fill {
+      height: 100%; background: var(--green);
+      border-radius: 99px;
+      transition: width .45s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* -- MAIN -- */
+    #app { max-width: 760px; margin: 0 auto 60px; padding: 0 20px; }
+
+    /* -- CATEGORY GRID -- */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 12px;
+    }
+    .cat-card {
+      background: var(--white);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r);
+      padding: 22px 16px 18px;
+      cursor: pointer; text-align: center;
+      transition: border-color .15s, box-shadow .15s, transform .15s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .cat-card:hover {
+      border-color: var(--green);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .cat-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+    .cat-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 600; font-size: .95rem;
+      margin-bottom: 5px;
+    }
+    .cat-eco { font-size: .76rem; color: var(--green); font-weight: 500; }
+
+    /* -- STEP CARD -- */
+    .step-card {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r);
+      padding: 36px 32px 28px;
+      box-shadow: var(--shadow-md);
+      animation: fadeUp .28s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .step-eyebrow {
+      font-size: .72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .1em;
+      color: var(--green); margin-bottom: 10px;
+    }
+    .step-q {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem; font-weight: 600;
+      line-height: 1.35; margin-bottom: 7px;
+    }
+    .step-hint {
+      font-size: .86rem; color: var(--ink-soft);
+      margin-bottom: 22px; line-height: 1.5;
+      display: flex; align-items: flex-start; gap: 6px;
+    }
+
+    /* inputs */
+    .inp {
+      width: 100%; padding: 12px 15px;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-sm);
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: .98rem; color: var(--ink);
+      background: var(--cream); outline: none;
+      transition: border-color .15s, background .15s;
+    }
+    .inp:focus { border-color: var(--green); background: var(--white); }
+    .inp-unit {
+      font-size: .82rem; color: var(--ink-faint);
+      margin-top: 5px;
+    }
+
+    /* choices */
+    .choices { display: flex; flex-wrap: wrap; gap: 9px; }
+    .ch-btn {
+      padding: 9px 16px;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: 99px; background: var(--white);
+      cursor: pointer; font-size: .92rem;
+      font-family: 'Instrument Sans', sans-serif;
+      color: var(--ink); transition: all .14s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .ch-btn:hover { border-color: var(--green); background: var(--green-pale); }
+    .ch-btn.sel {
+      background: var(--green); border-color: var(--green);
+      color: #fff; font-weight: 500;
+    }
+
+    /* yes/no */
+    .yn { display: flex; gap: 10px; }
+    .yn-btn {
+      flex: 1; padding: 13px 10px; text-align: center;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-sm); background: var(--white);
+      cursor: pointer; font-size: .98rem;
+      font-family: 'Instrument Sans', sans-serif;
+      transition: all .14s;
+    }
+    .yn-btn:hover { border-color: var(--green); }
+    .yn-btn.yes.sel { background: var(--green); border-color: var(--green); color: #fff; font-weight: 600; }
+    .yn-btn.no.sel  { background: var(--red);   border-color: var(--red);   color: #fff; font-weight: 600; }
+
+    /* nav */
+    .nav { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; }
+    .btn-back {
+      background: none; border: none; cursor: pointer;
+      color: var(--ink-faint); font-size: .88rem;
+      font-family: 'Instrument Sans', sans-serif;
+      padding: 6px; transition: color .14s;
+    }
+    .btn-back:hover { color: var(--ink); }
+    .btn-next {
+      background: var(--green); color: #fff; border: none;
+      border-radius: 99px; padding: 12px 26px;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: .96rem; font-weight: 600;
+      cursor: pointer; transition: background .15s, transform .1s;
+      display: flex; align-items: center; gap: 7px;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .btn-next:hover:not(:disabled) { background: #0a5e41; transform: translateY(-1px); }
+    .btn-next:disabled { background: var(--cream-dark); color: var(--ink-faint); cursor: default; transform: none; }
+
+    /* -- LOADING / STREAMING -- */
+    .loading-wrap {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r);
+      padding: 48px 32px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+    .spin-ring {
+      width: 48px; height: 48px;
+      border: 3px solid var(--green-pale);
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .mini-spin {
+      width: 16px; height: 16px;
+      border: 2px solid var(--green-pale);
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+    }
+
+    .steps-progress { display: flex; flex-direction: column; gap: 10px; }
+    .step-progress-item {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--cream-mid); border-radius: var(--r-sm);
+      padding: 14px 16px;
+      transition: opacity .3s;
+    }
+    .step-progress-item.dim { opacity: .4; }
+    .sp-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .sp-title { font-weight: 600; font-size: .9rem; }
+    .sp-sub { font-size: .76rem; color: var(--ink-faint); margin-top: 2px; }
+    .sp-state { margin-left: auto; flex-shrink: 0; font-size: .9rem; }
+    .loading-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem; font-weight: 600; margin-bottom: 6px;
+    }
+    .loading-sub { font-size: .86rem; color: var(--ink-soft); }
+
+    /* streaming result box */
+    .stream-box {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+    .stream-header {
+      background: linear-gradient(135deg, var(--green) 0%, #0a5e41 100%);
+      color: #fff; padding: 28px 28px 22px;
+    }
+    .stream-header h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.35rem; font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .stream-header p { opacity: .85; font-size: .9rem; }
+    .badges-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .eco-badge {
+      background: rgba(255,255,255,.18);
+      padding: 5px 14px; border-radius: 99px;
+      font-weight: 700; font-size: 1rem;
+    }
+    .score-badge {
+      background: rgba(255,255,255,.12);
+      padding: 5px 14px; border-radius: 99px;
+      font-size: .85rem;
+    }
+
+    .stream-body { padding: 28px 28px 20px; }
+    .section-title {
+      font-size: .72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .1em;
+      color: var(--ink-faint); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--cream-dark);
+    }
+    .section { margin-bottom: 26px; }
+
+    /* -- CHECKLIST PRÉ-APPEL -- */
+    .checklist-wrap {
+      background: var(--cream-mid);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r); padding: 22px;
+      margin-bottom: 24px;
+      transition: border-color .3s;
+    }
+    .checklist-wrap.complete {
+      border-color: var(--green);
+      background: var(--green-pale);
+    }
+    .checklist-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 600; font-size: 1rem;
+      margin-bottom: 14px;
+    }
+    .check-items { display: flex; flex-direction: column; gap: 10px; }
+    .check-item {
+      display: flex; align-items: center; gap: 12px;
+      cursor: pointer; padding: 10px 14px;
+      background: var(--white); border-radius: var(--r-sm);
+      border: 1.5px solid var(--cream-dark);
+      transition: all .2s; user-select: none;
+    }
+    .check-item:hover { border-color: var(--green); }
+    .check-item.done { border-color: var(--green); background: var(--green-pale); }
+    .check-box {
+      width: 20px; height: 20px; flex-shrink: 0;
+      border: 2px solid var(--cream-dark); border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s; font-size: .8rem;
+    }
+    .check-item.done .check-box {
+      background: var(--green); border-color: var(--green); color: #fff;
+    }
+    .check-label { font-size: .92rem; }
+
+    /* script box — locked/unlocked */
+    .script-gate {
+      position: relative;
+    }
+    .script-content {
+      background: var(--cream-mid);
+      border-left: 3px solid var(--green);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      padding: 20px;
+      font-size: .93rem; line-height: 1.75;
+      white-space: pre-wrap;
+      transition: filter .4s, opacity .4s;
+      max-height: 280px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .script-content.locked {
+      filter: blur(4px); opacity: .4;
+      user-select: none; pointer-events: none;
+    }
+    .lock-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 8px; cursor: default;
+      transition: opacity .3s;
+    }
+    .lock-overlay.hidden { opacity: 0; pointer-events: none; }
+    .lock-icon { font-size: 2rem; }
+    .lock-msg {
+      font-size: .88rem; color: var(--ink-soft);
+      text-align: center; max-width: 220px; line-height: 1.4;
+    }
+
+    /* streaming cursor */
+    .cursor {
+      display: inline-block; width: 2px; height: 1em;
+      background: var(--green); vertical-align: text-bottom;
+      animation: blink .6s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* args list */
+    .args { display: flex; flex-direction: column; gap: 9px; }
+    .arg {
+      display: flex; gap: 11px; align-items: flex-start;
+      background: var(--cream-mid); padding: 11px 14px;
+      border-radius: var(--r-sm); font-size: .9rem;
+      line-height: 1.5; opacity: 0;
+      animation: fadeUp .3s ease forwards;
+    }
+    .arg-check { color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* offres concurrentes */
+    .offres-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .offre-card {
+      display: block; text-decoration: none; color: var(--ink);
+      background: var(--white); border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r-sm); padding: 14px;
+      transition: border-color .15s, box-shadow .15s, transform .15s;
+      opacity: 0; animation: fadeUp .3s ease forwards;
+    }
+    .offre-card:hover {
+      border-color: var(--green); box-shadow: var(--shadow-sm);
+      transform: translateY(-2px);
+    }
+    .offre-nom { font-weight: 600; font-size: .92rem; margin-bottom: 4px; }
+    .offre-desc { font-size: .78rem; color: var(--ink-soft); margin-bottom: 6px; line-height: 1.4; }
+    .offre-prix { font-family:'Fraunces',serif; color: var(--green); font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+    .offre-cta { font-size: .76rem; color: var(--green); font-weight: 600; }
+
+    /* info grid */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .info-box {
+      border-radius: var(--r-sm); padding: 14px;
+      opacity: 0; animation: fadeUp .3s ease forwards;
+    }
+    .info-box.green { background: var(--green-pale); }
+    .info-box.gold  { background: var(--gold-pale); }
+    .info-box-label {
+      font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .08em;
+      margin-bottom: 5px;
+    }
+    .info-box.green .info-box-label { color: var(--green); }
+    .info-box.gold  .info-box-label { color: var(--gold); }
+    .info-box-val { font-size: .88rem; line-height: 1.45; }
+
+    /* actions */
+    .result-actions {
+      padding: 20px 28px; border-top: 1px solid var(--cream-dark);
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .btn-primary {
+      flex: 1; min-width: 150px;
+      background: var(--green); color: #fff; border: none;
+      border-radius: 99px; padding: 12px 22px;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: .93rem; font-weight: 600;
+      cursor: pointer; transition: background .15s;
+    }
+    .btn-primary:hover { background: #0a5e41; }
+    .btn-outline {
+      flex: 1; min-width: 120px;
+      background: none; border: 1.5px solid var(--cream-dark);
+      border-radius: 99px; padding: 12px 22px;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: .93rem; font-weight: 500; color: var(--ink);
+      cursor: pointer; transition: border-color .15s;
+    }
+    .btn-outline:hover { border-color: var(--ink-soft); }
+    .btn-ghost {
+      width: 100%; background: none; border: none;
+      color: var(--ink-faint); font-size: .86rem;
+      font-family: 'Instrument Sans', sans-serif;
+      cursor: pointer; padding: 8px; transition: color .14s;
+    }
+    .btn-ghost:hover { color: var(--ink); }
+
+    /* -- TRUST BAR -- */
+    .trust-bar {
+      background: var(--white);
+      border-top: 1px solid var(--cream-dark);
+      padding: 20px;
+    }
+    .trust-inner {
+      max-width: 760px; margin: 0 auto;
+      display: flex; justify-content: center;
+      gap: 28px; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 7px;
+      font-size: .8rem; color: var(--ink-faint);
+    }
+
+    /* -- TOAST -- */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--ink); color: #fff;
+      padding: 11px 22px; border-radius: 99px;
+      font-size: .88rem; font-weight: 500;
+      transition: transform .3s; z-index: 999;
+      pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+
+    /* ======================================
+       V3 — SCORE GAUGE (opt 3)
+    ====================================== */
+    .score-gauge-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 10px; padding: 18px 0 6px;
+    }
+    .score-gauge {
+      position: relative; width: 140px; height: 70px;
+      overflow: hidden;
+    }
+    .gauge-bg {
+      position: absolute; bottom: 0; left: 0;
+      width: 140px; height: 140px;
+      border-radius: 70px 70px 0 0;
+      background: conic-gradient(
+        var(--red)   0deg 60deg,
+        var(--gold)  60deg 120deg,
+        var(--green) 120deg 180deg
+      );
+    }
+    .gauge-mask {
+      position: absolute; bottom: 0; left: 10px;
+      width: 120px; height: 60px;
+      border-radius: 60px 60px 0 0;
+      background: var(--white);
+    }
+    .gauge-needle {
+      position: absolute; bottom: 0; left: 70px;
+      width: 3px; height: 60px;
+      background: var(--ink);
+      border-radius: 2px;
+      transform-origin: bottom center;
+      transform: rotate(-85deg);
+      transition: transform 1.2s cubic-bezier(.34,1.56,.64,1);
+    }
+    .gauge-score-label {
+      font-family: 'Fraunces', serif;
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+    }
+    .gauge-score-sub {
+      font-size: .8rem; color: var(--ink-soft);
+      font-weight: 500;
+    }
+
+    /* ======================================
+       V3 — SUIVI RÉSULTAT (opt 1)
+    ====================================== */
+    .suivi-wrap {
+      background: var(--white);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--r);
+      padding: 22px 24px;
+      margin-top: 16px;
+    }
+    .suivi-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 600; font-size: 1.05rem;
+      margin-bottom: 14px;
+    }
+    .suivi-btns {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .suivi-btn {
+      flex: 1; min-width: 130px;
+      padding: 10px 14px;
+      border-radius: 99px; border: 1.5px solid var(--cream-dark);
+      background: var(--white); cursor: pointer;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: .85rem; font-weight: 500; color: var(--ink);
+      transition: all .15s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .eco-confirm-btn, .email-submit, .btn-rappel, .escalade-box button {
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .suivi-btn:hover { border-color: var(--green); color: var(--green); }
+    .suivi-btn.success { background: var(--green); color: #fff; border-color: var(--green); }
+    .suivi-btn.refused { background: var(--gold-pale); border-color: var(--gold); }
+
+    /* Montant économisé */
+    .eco-input-wrap {
+      display: none;
+      margin-top: 14px;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .eco-input-wrap.visible { display: flex; }
+    .eco-amount-inp {
+      flex: 1; min-width: 120px; max-width: 160px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--green);
+      border-radius: var(--r-sm);
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 1rem; color: var(--ink);
+      background: var(--white); outline: none;
+    }
+    .eco-amount-inp:focus { box-shadow: 0 0 0 3px rgba(13,122,85,.15); }
+    .eco-confirm-btn {
+      padding: 10px 20px;
+      background: var(--green); color: #fff; border: none;
+      border-radius: 99px; cursor: pointer;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: .9rem; font-weight: 600;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    /* ======================================
+       V3 — PAGE SUCCÈS PARTAGEABLE (opt 7)
+    ====================================== */
+    #view-success {
+      display: none;
+    }
+    .success-box {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      animation: fadeUp .4s ease both;
+    }
+    .success-confetti {
+      background: linear-gradient(135deg, #0D7A55 0%, #15A36E 100%);
+      padding: 36px 28px 28px;
+      text-align: center; color: #fff;
+      position: relative; overflow: hidden;
+    }
+    .success-confetti::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .success-emoji { font-size: 3.5rem; margin-bottom: 12px; display: block; }
+    .success-amount {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.2rem, 8vw, 3.2rem);
+      font-weight: 700; line-height: 1;
+      margin-bottom: 6px;
+    }
+    .success-label {
+      font-size: 1rem; opacity: .9;
+      margin-bottom: 4px;
+    }
+    .success-cat {
+      font-size: .82rem; opacity: .7;
+    }
+    .success-body {
+      padding: 28px;
+    }
+    .success-msg {
+      font-size: 1rem; line-height: 1.6;
+      color: var(--ink-soft); margin-bottom: 20px;
+      text-align: center;
+    }
+    .success-share-title {
+      font-weight: 600; font-size: .9rem;
+      margin-bottom: 12px; color: var(--ink);
+    }
+    .success-share-card {
+      background: var(--cream-mid);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r-sm);
+      padding: 16px 18px;
+      font-size: .88rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+    .success-actions {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .escalade-section {
+      margin-top: 16px;
+      padding: 16px 18px;
+      background: var(--gold-pale);
+      border: 1px solid var(--gold);
+      border-radius: var(--r-sm);
+      font-size: .88rem;
+      line-height: 1.5;
+    }
+    .escalade-title {
+      font-weight: 600; color: var(--gold);
+      margin-bottom: 6px; font-size: .9rem;
+    }
+
+    /* ======================================
+       V3 — EMAIL (opt 2)
+    ====================================== */
+    .email-wrap {
+      background: var(--green-pale);
+      border: 1px solid rgba(13,122,85,.2);
+      border-radius: var(--r-sm);
+      padding: 16px 18px;
+      margin-top: 12px;
+    }
+    .email-label {
+      font-size: .86rem; font-weight: 600;
+      color: var(--green); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .email-row {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .email-inp {
+      flex: 1; min-width: 180px;
+      padding: 9px 13px;
+      border: 1.5px solid rgba(13,122,85,.3);
+      border-radius: var(--r-sm);
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: .9rem; color: var(--ink);
+      background: var(--white); outline: none;
+      transition: border-color .15s;
+    }
+    .email-inp:focus { border-color: var(--green); }
+    .email-submit {
+      padding: 9px 18px;
+      background: var(--green); color: #fff; border: none;
+      border-radius: 99px; cursor: pointer;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: .88rem; font-weight: 600;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .email-fine {
+      font-size: .72rem; color: var(--ink-faint);
+      margin-top: 7px; line-height: 1.4;
+    }
+
+    /* ======================================
+       V3 — RAPPEL TIMING (opt 4)
+    ====================================== */
+    .rappel-wrap {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--gold-pale);
+      border: 1px solid rgba(217,119,6,.25);
+      border-radius: var(--r-sm);
+      padding: 13px 16px;
+      margin-top: 8px;
+    }
+    .rappel-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .rappel-text { flex: 1; font-size: .86rem; line-height: 1.4; }
+    .rappel-text strong { color: var(--gold); }
+    .btn-rappel {
+      padding: 8px 16px;
+      background: var(--gold); color: #fff; border: none;
+      border-radius: 99px; cursor: pointer;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: .82rem; font-weight: 600;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .btn-rappel:disabled { opacity: .5; cursor: default; }
+
+    /* Stats dynamiques hero */
+    .stat-n.counting { color: var(--green); }
+
+    /* ======================================
+       V3 — MODE ESCALADE (opt 5)
+    ====================================== */
+    #view-escalade { display: none; }
+    .escalade-box {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      animation: fadeUp .35s ease both;
+    }
+    .escalade-header {
+      background: linear-gradient(135deg, #92400e, var(--gold));
+      padding: 24px 28px; color: #fff;
+    }
+    .escalade-header h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem; font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .escalade-header p { opacity: .9; font-size: .92rem; }
+    .escalade-body { padding: 24px 28px; }
+    .escalade-script {
+      background: var(--cream-mid);
+      border-radius: var(--r-sm);
+      padding: 16px 18px;
+      font-size: .9rem; line-height: 1.65;
+      color: var(--ink); white-space: pre-line;
+      max-height: 260px; overflow-y: auto;
+      margin-bottom: 16px;
+    }
+    .escalade-tips { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .escalade-tip {
+      display: flex; gap: 10px;
+      background: var(--gold-pale);
+      border-radius: var(--r-sm);
+      padding: 10px 13px;
+      font-size: .86rem; line-height: 1.45;
+    }
+    .escalade-tip-icon { flex-shrink: 0; }
+
+    @media (max-width: 560px) {
+      .step-card, .stream-body { padding: 22px 18px; }
+      .stream-header { padding: 22px 18px 18px; }
+      .result-actions { flex-direction: column; }
+      .info-grid { grid-template-columns: 1fr; }
+      .stats-row { flex-direction: column; max-width: 200px; }
+      .stat { border-right: none; border-bottom: 1px solid var(--cream-dark); }
+      .stat:last-child { border-bottom: none; }
+    }
+  
+    /* ── FEATURE 2 : Script adaptatif ── */
+    .adapt-wrap { margin: 20px 0; padding: 18px; background: #f8f9fa; border-radius: 14px; border: 1.5px solid #e5e7eb; }
+    .adapt-title { font-weight: 700; font-size: 15px; margin-bottom: 12px; color: #1a1a1a; }
+    .adapt-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .adapt-btn { flex: 1; min-width: 120px; padding: 10px 8px; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity .15s; }
+    .adapt-btn.green { background: #d1fae5; color: #065f46; }
+    .adapt-btn.orange { background: #fee2e2; color: #991b1b; }
+    .adapt-btn.blue { background: #dbeafe; color: #1e40af; }
+    .adapt-btn:active { opacity: .7; }
+    .adapt-loading { text-align: center; padding: 16px; color: #6b7280; font-size: 14px; }
+    .adapt-script-wrap { margin-top: 14px; padding: 14px; background: #fff; border-radius: 10px; border: 1px solid #e5e7eb; }
+    .adapt-script-title { font-weight: 700; font-size: 14px; color: #0D7A55; margin-bottom: 8px; }
+    .adapt-script-text { font-size: 14px; line-height: 1.6; color: #374151; }
+    .adapt-error { color: #dc2626; font-size: 13px; padding: 10px; }
+
+    /* ── FEATURE 4 : Résiliation ── */
+    .resil-wrap { margin: 8px 0 20px; }
+    .btn-resil { width: 100%; padding: 13px; background: #fff5f5; border: 1.5px solid #fca5a5; border-radius: 12px; color: #991b1b; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s; }
+    .btn-resil:active { background: #fee2e2; }
+    .resil-letter-wrap { margin-top: 14px; padding: 16px; background: #fff; border-radius: 12px; border: 1.5px solid #e5e7eb; }
+    .resil-letter-title { font-weight: 700; font-size: 15px; margin-bottom: 12px; color: #1a1a1a; }
+    .resil-textarea { width: 100%; min-height: 280px; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 13px; line-height: 1.6; color: #374151; font-family: inherit; resize: vertical; box-sizing: border-box; background: #fafaf7; }
+    .resil-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .resil-actions .btn-primary, .resil-actions .btn-outline { flex: 1; }
+    .resil-tip { margin-top: 10px; font-size: 12px; color: #6b7280; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo" onclick="restart()" style="cursor:pointer;" role="button" aria-label="Retour accueil">
+      <div class="logo-dot"></div>
+      NégoFacile
+    </div>
+    <div class="header-right">
+      <div id="timing-badge"></div>
+      <span class="pill">Gratuit</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-eyebrow">✦ Script personnalisé par IA en 5 min</div>
+  <h1>Négociez vos factures,<br>économisez <em>jusqu'à 400€/an</em></h1>
+  <p class="hero-sub">Répondez à quelques questions, obtenez un script sur-mesure prêt à lire au téléphone — avec les bons arguments, dans les bons mots.</p>
+  <div class="stats-row">
+    <div class="stat">
+      <span class="stat-n">70%</span>
+      <span class="stat-l">taux de succès</span>
+    </div>
+    <div class="stat">
+      <span class="stat-n">5 min</span>
+      <span class="stat-l">chrono</span>
+    </div>
+    <div class="stat">
+      <span class="stat-n">0€</span>
+      <span class="stat-l">toujours gratuit</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<div id="progress-wrap">
+  <div class="prog-meta">
+    <span id="prog-label">Question 1</span>
+    <span id="prog-time"></span>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+</div>
+
+<!-- APP -->
+<main id="app">
+
+  <!-- STEP 0 : catégorie -->
+  <div id="view-cat">
+    <div class="cat-grid">
+      <div class="cat-card" onclick="pickCat('auto')">
+        <span class="cat-icon">🚗</span>
+        <div class="cat-name">Assurance Auto</div>
+        <div class="cat-eco">Éco. moy. 150 €/an</div>
+      </div>
+      <div class="cat-card" onclick="pickCat('habitation')">
+        <span class="cat-icon">🏠</span>
+        <div class="cat-name">Assurance Habitation</div>
+        <div class="cat-eco">Éco. moy. 80 €/an</div>
+      </div>
+      <div class="cat-card" onclick="pickCat('telecom')">
+        <span class="cat-icon">📱</span>
+        <div class="cat-name">Téléphone / Internet</div>
+        <div class="cat-eco">Éco. moy. 120 €/an</div>
+      </div>
+      <div class="cat-card" onclick="pickCat('energie')">
+        <span class="cat-icon">⚡</span>
+        <div class="cat-name">Énergie</div>
+        <div class="cat-eco">Éco. moy. 200 €/an</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WIZARD (injecté) -->
+  <div id="view-wizard" style="display:none"></div>
+
+  <!-- LOADING (avant streaming) -->
+  <div id="view-loading" style="display:none" class="loading-wrap">
+    <div class="spin-ring"></div>
+    <div class="loading-title">Analyse de votre profil…</div>
+    <div class="loading-sub">Votre script personnalisé arrive dans quelques secondes</div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="view-result" style="display:none"></div>
+
+</main>
+
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item">🔒 Aucune donnée stockée</div>
+    <div class="trust-item">🤖 IA Claude (Anthropic)</div>
+    <div class="trust-item">⚖️ Lois françaises 2025</div>
+    <div class="trust-item">🇫🇷 100% gratuit</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════ -->
+
+
+
+<div id="view-escalade"></div>
+
+
+</main>
+
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item">🔒 Aucune donnée stockée</div>
+    <div class="trust-item">🤖 IA Claude (Anthropic)</div>
+    <div class="trust-item">⚖️ Lois françaises 2025</div>
+    <div class="trust-item">🇫🇷 100% gratuit</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+<script>
+
+
+
+
+
+
+
+
+
+/* -----------------------------
+   AMÉLIORATION 4 : TIMING DYNAMIQUE
+--------------------------------- */
+(function initTiming() {
+  const now = new Date();
+  const day = now.getDay();   // 0=dim, 1=lun ... 6=sam
+  const h   = now.getHours();
+  const isWeekday = day >= 1 && day <= 5;
+  const isPrime   = h >= 10 && h < 12;
+  const isGood    = isWeekday && isPrime;
+
+  const badge = document.getElementById('timing-badge');
+  if (isGood) {
+    badge.className = 'good';
+    badge.innerHTML = '🟢 Bon moment pour appeler';
+  } else if (isWeekday && h >= 8 && h < 18) {
+    badge.className = 'good';
+    badge.innerHTML = '🟡 Moment acceptable';
+  } else {
+    badge.className = 'wait';
+    const nextDay = day === 5 || day === 6 ? 'lundi' : 'demain';
+    badge.innerHTML = `⏰ Appelez ${nextDay} 10h–12h`;
+  }
+  badge.style.display = 'flex';
+})();
+
+
+/* -----------------------------
+   QUESTIONS CONFIG
+--------------------------------- */
+const Q = {
+  auto: [
+    { id:'prime',        type:'number',  q:'Quel est votre montant annuel actuel ?',               hint:'Sur votre avis d\'échéance ou espace client',               unit:'€/an',   ph:'Ex : 680' },
+    { id:'anciennete',   type:'number',  q:'Depuis combien d\'années êtes-vous chez cet assureur ?',hint:'',                                                          unit:'ans',    ph:'Ex : 5' },
+    { id:'crm',          type:'choices', q:'Quel est votre coefficient bonus-malus ?',              hint:'Indiqué sur votre relevé d\'information assureur',           choices:['0,50 (max bonus)','0,51 – 0,75','0,76 – 0,99','1,00 (neutre)','> 1 (malus)'] },
+    { id:'sinistres',    type:'yn',      q:'Sinistre responsable ces 3 dernières années ?',         hint:'Accident, bris de glace responsable…' },
+    { id:'usage',        type:'choices', q:'Usage principal du véhicule ?',                         hint:'',                                                           choices:['Domicile-travail','Loisirs uniquement','Les deux'] },
+    { id:'stationnement',type:'choices', q:'Comment stationne votre véhicule la nuit ?',            hint:'Impact direct sur le tarif',                                 choices:['Garage fermé / box','Parking couvert','Rue / voie publique'] },
+    { id:'multi',        type:'yn',      q:'Autre contrat chez le même assureur ?',                 hint:'Habitation, moto…  → levier de remise groupée' },
+    { id:'deja_nego',    type:'yn',      q:'Avez-vous déjà essayé de négocier ?',                  hint:'' },
+    { id:'echeance',     type:'choices', q:'Quand est votre prochaine date d\'échéance ?',          hint:'Le timing change tout',                                      choices:['< 2 mois','2 – 6 mois','> 6 mois','Je ne sais pas'] },
+  ],
+  habitation: [
+    { id:'prime',            type:'number',  q:'Montant annuel actuel ?',                               hint:'Sur votre avis d\'échéance',                               unit:'€/an', ph:'Ex : 260' },
+    { id:'statut',           type:'choices', q:'Vous êtes…',                                            hint:'',                                                          choices:['Locataire','Propriétaire occupant','Propriétaire non-occupant'] },
+    { id:'type_logement',    type:'choices', q:'Type de logement ?',                                    hint:'',                                                          choices:['Appartement','Maison individuelle'] },
+    { id:'surface',          type:'choices', q:'Surface approximative ?',                               hint:'',                                                          choices:['< 30 m²','30 – 60 m²','60 – 100 m²','100 – 150 m²','> 150 m²'] },
+    { id:'anciennete',       type:'number',  q:'Ancienneté chez cet assureur ?',                        hint:'',                                                          unit:'ans',  ph:'Ex : 4' },
+    { id:'sinistres',        type:'yn',      q:'Sinistre déclaré ces 3 dernières années ?',             hint:'Dégât des eaux, vol, incendie…' },
+    { id:'resil_passee',     type:'yn',      q:'Un assureur vous a-t-il déjà résilié un contrat ?',    hint:'Change la stratégie de négociation' },
+    { id:'alarme',           type:'yn',      q:'Alarme ou serrures renforcées installées ?',           hint:'Peut justifier une réduction directe' },
+    { id:'multi',            type:'yn',      q:'Autre contrat chez le même assureur ?',                hint:'Auto, moto… → levier de remise groupée' },
+    { id:'deja_nego',        type:'yn',      q:'Avez-vous déjà tenté de négocier ?',                  hint:'' },
+  ],
+  telecom: [
+    { id:'type_offre',  type:'choices', q:'Quelle offre souhaitez-vous négocier ?',              hint:'',                                                        choices:['Forfait mobile seul','Box internet seule','Mobile + Box (même opérateur)'] },
+    { id:'operateur',   type:'text',    q:'Quel est votre opérateur actuel ?',                   hint:'',                                                        ph:'Ex : Orange, SFR, Free, Bouygues…' },
+    { id:'montant',     type:'number',  q:'Montant mensuel total ?',                             hint:'Toutes lignes du même opérateur confondues',              unit:'€/mois', ph:'Ex : 65' },
+    { id:'anciennete',  type:'number',  q:'Ancienneté chez cet opérateur ?',                    hint:'',                                                        unit:'ans', ph:'Ex : 6' },
+    { id:'engagement',  type:'yn',      q:'Encore engagé 24 mois ?',                            hint:'Vérifiez sur votre espace client' },
+    { id:'hausse',      type:'yn',      q:'Tarif augmenté ces 12 derniers mois ?',               hint:'Si oui → droit de résilier sans frais pendant 4 mois (art. L224-33)' },
+    { id:'options',     type:'yn',      q:'Options que vous n\'utilisez pas ?',                  hint:'TV, assurance téléphone, data supplémentaire…' },
+    { id:'connexion',   type:'choices', q:'Votre connexion internet est en…',                   hint:'',                                                        choices:['Fibre optique','ADSL / VDSL','Pas de box','Je ne sais pas'], skipIf: a => a.type_offre === 'Forfait mobile seul' },
+    { id:'deja_nego',   type:'yn',      q:'Avez-vous déjà tenté de négocier ?',                 hint:'' },
+  ],
+  energie: [
+    { id:'type_energie',  type:'choices', q:'Que souhaitez-vous négocier ?',                    hint:'',                                                        choices:['Électricité uniquement','Gaz uniquement','Électricité + Gaz'] },
+    { id:'fournisseur',   type:'text',    q:'Fournisseur actuel ?',                             hint:'',                                                        ph:'Ex : EDF, Engie, TotalEnergies, Octopus…' },
+    { id:'montant',       type:'number',  q:'Montant mensuel moyen ?',                         hint:'Estimé sur vos 12 dernières factures',                    unit:'€/mois', ph:'Ex : 120' },
+    { id:'type_offre',    type:'choices', q:'Votre offre est à prix…',                         hint:'Indiqué sur votre contrat',                               choices:['Fixe (bloqué 1-2 ans)','Indexé (suit le marché)','Je ne sais pas'] },
+    { id:'chauffage',     type:'choices', q:'Chauffage principal ?',                            hint:'',                                                        choices:['Électrique','Gaz','Autre (PAC, fioul…)'] },
+    { id:'hc',            type:'yn',      q:'Option heures creuses active ?',                  hint:'Visible sur votre compteur Linky ou contrat' },
+    { id:'puissance',     type:'choices', q:'Puissance souscrite ?',                           hint:'En kVA — sur votre contrat',                              choices:['3 kVA','6 kVA','9 kVA','12 kVA+','Je ne sais pas'] },
+    { id:'anciennete',    type:'number',  q:'Ancienneté chez ce fournisseur ?',                hint:'',                                                        unit:'ans', ph:'Ex : 3' },
+    { id:'deja_nego',     type:'yn',      q:'Avez-vous déjà tenté de négocier ?',             hint:'' },
+  ],
+};
+
+const TIMES = {
+  auto:       ['~4 min','~3 min','~3 min','~2 min','~2 min','~1 min','~45 sec','~20 sec','Dernière !'],
+  habitation: ['~4 min','~3 min','~3 min','~2 min','~2 min','~1 min','~45 sec','~30 sec','~15 sec','Dernière !'],
+  telecom:    ['~4 min','~3 min','~3 min','~2 min','~1 min','~1 min','~30 sec','~15 sec','Dernière !'],
+  energie:    ['~4 min','~3 min','~3 min','~2 min','~2 min','~1 min','~45 sec','~30 sec','Dernière !'],
+};
+
+const CAT_LABELS = { auto:'🚗 Assurance Auto', habitation:'🏠 Assurance Habitation', telecom:'📱 Téléphone / Internet', energie:'⚡ Énergie' };
+
+
+/* -----------------------------
+   STATE
+--------------------------------- */
+let S = { cat: null, idx: 0, ans: {} };
+let isGenerating = false; // anti double-appel
+let globalController = null; // abort stream si restart
+
+
+/* -----------------------------
+   AMÉLIORATION 3 : RÉSULTAT MÉMORISÉ (sessionStorage)
+   Compatible sandbox — pas de history API
+--------------------------------- */
+function saveToURL(result) {
+  try {
+    sessionStorage.setItem('nego_result', JSON.stringify({ ans: S.ans, cat: S.cat, res: result }));
+  } catch(e) {}
+}
+
+function loadFromURL() {
+  try {
+    const raw = sessionStorage.getItem('nego_result');
+    if (!raw) return false;
+    const d = JSON.parse(raw);
+    if (!d.cat || !d.res) return false;
+    S.cat = d.cat; S.ans = d.ans || {};
+    showResult(d.res);
+    document.getElementById('hero').style.display = 'none';
+    document.getElementById('view-cat').style.display = 'none';
+    document.getElementById('progress-wrap').classList.add('on');
+    document.getElementById('prog-fill').style.width = '100%';
+    document.getElementById('prog-label').textContent = '✅ Script prêt !';
+    return true;
+  } catch(e) { return false; }
+}
+
+
+/* -----------------------------
+   FLOW
+--------------------------------- */
+function activeQs() {
+  return Q[S.cat].filter(q => !(q.skipIf && q.skipIf(S.ans)));
+}
+
+function pickCat(cat) {
+  S = { cat, idx: 0, ans: {} };
+  document.getElementById('view-cat').style.display = 'none';
+  document.getElementById('hero').style.display = 'none';
+  document.getElementById('progress-wrap').classList.add('on');
+  renderQ();
+}
+
+function renderQ() {
+  const qs = activeQs();
+  const n  = qs.length;
+  const i  = S.idx;
+
+  if (i >= n) { generate(); return; }
+
+  const q   = qs[i];
+  const pct = Math.round((i / n) * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `Question ${i + 1} / ${n}`;
+  document.getElementById('prog-time').textContent  = '⏱ ' + (TIMES[S.cat][i] || '~10 sec');
+
+  const saved = S.ans[q.id];
+  let inp = '';
+
+  if (q.type === 'number' || q.type === 'text') {
+    inp = `<div>
+      <input class="inp" id="qinp" type="${q.type === 'number' ? 'number' : 'text'}"
+        placeholder="${q.ph || ''}" value="${saved || ''}"
+        aria-label="${q.q}" min="${q.type === 'number' ? '0' : ''}"
+        oninput="onTyped()" onkeydown="if(event.key==='Enter')btnNext()">
+      ${q.unit ? '<div class="inp-unit">'+q.unit+'</div>' : ''}
+    </div>`;
+  } else if (q.type === 'choices') {
+    inp = `<div class="choices">${q.choices.map(c =>
+      `<button class="ch-btn${saved === c ? ' sel' : ''}" onclick="pickChoice('${esc(c)}')">${c}</button>`
+    ).join('')}</div>`;
+  } else {
+    inp = `<div class="yn">
+      <button class="yn-btn yes${saved === 'Oui' ? ' sel' : ''}" onclick="pickYN('Oui')">✓ Oui</button>
+      <button class="yn-btn no${saved === 'Non' ? ' sel' : ''}"  onclick="pickYN('Non')">✗ Non</button>
+    </div>`;
+  }
+
+  document.getElementById('view-wizard').style.display = 'block';
+  document.getElementById('view-wizard').innerHTML = `
+    <div class="step-card">
+      <div class="step-eyebrow">${CAT_LABELS[S.cat]}</div>
+      <div class="step-q">${q.q}</div>
+      ${q.hint ? '<div class="step-hint">💡 '+q.hint+'</div>' : ''}
+      ${inp}
+      <div class="nav">
+        <button class="btn-back" onclick="goBack()">${i > 0 ? '← Retour' : ''}</button>
+        <button class="btn-next" id="btn-next" onclick="btnNext()" ${!saved ? 'disabled' : ''}>
+          ${i === n - 1 ? 'Générer mon script →' : 'Suivant →'}
+        </button>
+      </div>
+    </div>`;
+
+  if (q.type === 'number' || q.type === 'text') {
+    setTimeout(() => (function(){var _e=document.getElementById('qinp');if(_e)_e.focus();})(), 50);
+  }
+}
+
+function esc(s) { return (s || '').replace(/'/g, '&#39;'); }
+
+function onTyped() {
+  const _qinp=document.getElementById('qinp'); const v = _qinp ? (_qinp.value||'').trim() : '';
+  const q = activeQs()[S.idx];
+  if (v) { S.ans[q.id] = v; document.getElementById('btn-next').disabled = false; }
+  else   { document.getElementById('btn-next').disabled = true; }
+}
+
+function pickChoice(v) {
+  const q = activeQs()[S.idx];
+  S.ans[q.id] = v;
+  document.querySelectorAll('.ch-btn').forEach(b => b.classList.remove('sel'));
+  event.target.classList.add('sel');
+  document.getElementById('btn-next').disabled = false;
+  setTimeout(btnNext, 300);
+}
+
+function pickYN(v) {
+  const q = activeQs()[S.idx];
+  S.ans[q.id] = v;
+  document.querySelectorAll('.yn-btn').forEach(b => b.classList.remove('sel'));
+  event.target.classList.add('sel');
+  document.getElementById('btn-next').disabled = false;
+  setTimeout(btnNext, 300);
+}
+
+function btnNext() {
+  const q = activeQs()[S.idx];
+  const inp = document.getElementById('qinp');
+  if (inp && inp.value && inp.value.trim()) S.ans[q.id] = inp.value.trim();
+  if (!S.ans[q.id]) return;
+  S.idx++;
+  renderQ();
+}
+
+function goBack() {
+  if (S.idx === 0) {
+    document.getElementById('view-wizard').style.display = 'none';
+    document.getElementById('view-cat').style.display = 'block';
+    document.getElementById('hero').style.display = 'block';
+    document.getElementById('progress-wrap').classList.remove('on');
+    return;
+  }
+  S.idx--;
+  renderQ();
+}
+
+
+/* -----------------------------
+   GÉNÉRATION
+--------------------------------- */
+async function generate() {
+  if (isGenerating) return; // anti double-appel
+  isGenerating = true;
+  document.getElementById('view-wizard').style.display  = 'none';
+  document.getElementById('view-loading').style.display = 'block';
+  document.getElementById('prog-fill').style.width = '95%';
+  document.getElementById('prog-label').textContent = 'Génération…';
+  document.getElementById('prog-time').textContent  = '⏱ Quelques secondes…';
+
+  try {
+    const result = await callAPI();
+    document.getElementById('view-loading').style.display = 'none';
+    isGenerating = false;
+    saveToURL(result);
+    showResult(result);
+  } catch(e) {
+    // Retry 1 fois si erreur réseau (pas sur 401/429)
+    const isNetworkErr = !e.message.includes('401') && !e.message.includes('429') && !e.message.includes('invalide');
+    if (isNetworkErr) {
+      try {
+        document.getElementById('prog-label').textContent = '↩ Nouvelle tentative…';
+        await new Promise(r => setTimeout(r, 1500));
+        const result = await callAPI();
+        document.getElementById('view-loading').style.display = 'none';
+        isGenerating = false;
+        saveToURL(result);
+        showResult(result);
+        return;
+      } catch(_) {}
+    }
+    // Fallback final avec message d'erreur contextuel
+    document.getElementById('view-loading').style.display = 'none';
+    const fb = fallback();
+    if (e.message.includes('429')) fb._error = '⚠️ Limite temporaire atteinte — script de secours affiché';
+    else if (e.message.includes('invalide')) fb._error = '⚠️ Erreur de configuration — contactez le support';
+    else fb._error = '⚠️ Connexion instable — script de secours affiché';
+    isGenerating = false;
+    saveToURL(fb);
+    showResult(fb);
+  }
+}
+
+
+/* -----------------------------
+   AMÉLIORATION 5 : PROMPT ROBUSTE + CHAIN-OF-THOUGHT
+--------------------------------- */
+function buildPrompt() {
+  const a = S.ans, c = S.cat;
+  const profiles = {
+    auto:       `Prime: ${a.prime}€/an | Ancienneté: ${a.anciennete}ans | CRM: ${a.crm} | Sinistre: ${a.sinistres} | Usage: ${a.usage} | Stationnement: ${a.stationnement} | Multi-contrats: ${a.multi} | Déjà négocié: ${a.deja_nego} | Échéance: ${a.echeance}`,
+    habitation: `Prime: ${a.prime}€/an | Statut: ${a.statut} | Type: ${a.type_logement} | Surface: ${a.surface} | Ancienneté: ${a.anciennete}ans | Sinistre: ${a.sinistres} | Résilié par assureur: ${a.resil_passee} | Alarme: ${a.alarme} | Multi: ${a.multi} | Déjà négocié: ${a.deja_nego}`,
+    telecom:    `Offre: ${a.type_offre} | Opérateur: ${a.operateur} | Montant: ${a.montant}€/mois | Ancienneté: ${a.anciennete}ans | Engagé: ${a.engagement} | Hausse récente: ${a.hausse} | Options inutilisées: ${a.options} | Connexion: ${a.connexion||'N/A'} | Déjà négocié: ${a.deja_nego}`,
+    energie:    `Type: ${a.type_energie} | Fournisseur: ${a.fournisseur} | Montant: ${a.montant}€/mois | Offre: ${a.type_offre} | Chauffage: ${a.chauffage} | HC: ${a.hc} | Puissance: ${a.puissance} | Ancienneté: ${a.anciennete}ans | Déjà négocié: ${a.deja_nego}`,
+  };
+  const catLabels = { auto:'assurance auto', habitation:'assurance habitation', telecom:'téléphone/internet', energie:'énergie' };
+
+  return `Expert négociation France 2025. Profil ${catLabels[c]}: ${profiles[c]}
+
+Réponds UNIQUEMENT en JSON brut (zéro markdown) :
+{"economie":"ex: 80-150€/an","score":"Élevé|Moyen|Faible","script":"120 mots max. §1: bonjour + ancienneté. §2: tarif concurrent précis. §3: demande de réduction. Naturel, direct.","arguments":["arg perso 1","arg 2","arg 3"],"offres_concurrentes":[{"nom":"Concurrent","offre":"Description courte","prix":"XX€/mois ou an","lien":"URL comparateur ou site direct"}],"timing":"ex: mar-jeu 10h-12h","attention":"1 point clé"}
+
+Offres concurrentes: donne 3 vraies offres du marché français actuelles avec prix réels 2025.`;
+}
+
+
+/* -----------------------------
+   AMÉLIORATION 5 : PARSER JSON ROBUSTE
+--------------------------------- */
+function robustParse(raw) {
+  // 0. Strip markdown code fences
+  raw = raw.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/,'').trim();
+  // 1. Try direct parse
+  try { return JSON.parse(raw); } catch(_) {}
+
+  // 2. Extract JSON block
+  const m = raw.match(/\{[\s\S]*\}/);
+  if (m) { try { return JSON.parse(m[0]); } catch(_) {} }
+
+  // 3. Field-by-field regex extraction
+  const get = (key) => {
+    const r = new RegExp(`"${key}"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)"`, 'i');
+    const match = raw.match(r);
+    return match ? match[1].replace(/\\n/g,'\n').replace(/\\"/g,'"') : null;
+  };
+  const getArr = (key) => {
+    const r = new RegExp(`"${key}"\\s*:\\s*\\[([\\s\\S]*?)\\]`, 'i');
+    const match = raw.match(r);
+    if (!match) return [];
+    return (match[1].match(/"((?:[^"\\\\]|\\\\.)*)"/g) || []).map(s => s.slice(1,-1));
+  };
+  const getArrObj = (key) => {
+    try {
+      const r = new RegExp(`"${key}"\\s*:\\s*(\\[[\\s\\S]*?\\])`, 'i');
+      const match = raw.match(r);
+      if (!match) return [];
+      return JSON.parse(match[1]);
+    } catch(_) { return []; }
+  };
+
+  return {
+    economie:           get('economie')           || '80–200€',
+    score:              get('score')              || 'Moyen',
+    script:             get('script')             || fallback().script,
+    arguments:          getArr('arguments').length ? getArr('arguments') : fallback().arguments,
+    offres_concurrentes:getArrObj('offres_concurrentes').length ? getArrObj('offres_concurrentes') : fallback().offres_concurrentes,
+    alternatives:       getArr('alternatives').length ? getArr('alternatives') : [],
+    timing:             get('timing')             || fallback().timing,
+    attention:          get('attention')          || fallback().attention,
+  };
+}
+
+
+/* -----------------------------
+   ARCHITECTURE 2 ÉTAPES :
+   1) web_search → offres temps réel
+   2) stream → script JSON personnalisé
+--------------------------------- */
+
+// Étape 1 : chercher les vraies offres concurrentes avec web_search
+async function fetchOffres() {
+  const queries = {
+    auto:       'meilleures offres assurance auto pas cher France 2025 tarif mensuel',
+    habitation: 'meilleures offres assurance habitation pas cher France 2025 prix',
+    telecom:    'meilleures offres forfait mobile box internet France 2025 prix comparatif',
+    energie:    'meilleures offres électricité gaz fournisseur alternatif France 2025 tarif',
+  };
+
+  const statusEl = document.getElementById('loading-status');
+  if (statusEl) statusEl.textContent = '🔍 Recherche des offres du marché en cours…';
+
+  // 8s max pour web search
+
+  const res = await fetch('/api/search', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 600,
+      tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: 2 }],
+      messages: [{
+        role: 'user',
+        content: `Cherche sur le web les 3 meilleures offres concurrentes pour : ${queries[S.cat]}.
+Réponds UNIQUEMENT avec ce JSON (sans markdown) :
+[{"nom":"NomOffre","offre":"Description 1 ligne","prix":"XX€/mois","lien":"https://..."},{"nom":"...","offre":"...","prix":"...","lien":"..."},{"nom":"...","offre":"...","prix":"...","lien":"..."}]
+Prix réels trouvés sur le web. Liens directs vers les offres.`
+      }]
+    })
+  });
+
+  if (!res.ok) {
+    if (res.status === 401) throw new Error('Clé API invalide — vérifiez la configuration');
+    if (res.status === 429) throw new Error('Limite atteinte — réessayez dans 1 minute');
+    throw new Error('Erreur serveur (' + res.status + ')');
+  }
+  const data = await res.json();
+
+  // Extraire le texte de la réponse (ignorer les blocs server_tool_use)
+  const textBlocks = (data.content || []).filter(b => b.type === 'text');
+  const raw = textBlocks.map(b => b.text).join('');
+
+  // Parser le JSON array
+  try {
+    const m = raw.match(/\[[\s\S]*\]/);
+    if (m) return JSON.parse(m[0]);
+  } catch(_) {}
+  return null; // fallback si échec
+}
+
+// Étape 2 : générer le script en streaming avec les offres trouvées
+async function callAPI() {
+  buildResultSkeleton();
+
+  // Lancer la recherche ET la génération en parallèle pour gagner 3-4 secondes
+  const offresPromise = fetchOffres().catch(function(e) {
+    console.warn('web_search failed, using model knowledge', e);
+    return null;
+  });
+
+  const statusEl = document.getElementById('loading-status');
+
+  const streamTimeout = setTimeout(function() { if (globalController) { try { globalController.abort(); } catch(_) {} } }, 30000);
+  globalController = new AbortController();
+
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      prompt: buildPrompt()
+    }),
+    signal: globalController.signal
+  });
+
+  if (!res.ok) {
+    if (res.status === 401) throw new Error('Clé API invalide');
+    if (res.status === 429) throw new Error('Limite atteinte — réessayez dans 1 minute');
+    throw new Error('Erreur API (' + res.status + ')');
+  }
+
+  const reader = res.body.getReader();
+  const dec    = new TextDecoder();
+  let raw = '';
+  let buffer = '';
+  const streamEl = document.getElementById('stream-raw');
+
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += dec.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop();
+    for (const line of lines) {
+      if (!line.startsWith('data: ')) continue;
+      const d = line.slice(6);
+      if (d === '[DONE]') continue;
+      try {
+        const ev = JSON.parse(d);
+        if (ev.type === 'content_block_delta' && (ev.delta && ev.delta.text)) {
+          raw += ev.delta.text;
+          if (streamEl) streamEl.textContent = raw;
+        }
+      } catch(_) {}
+    }
+  }
+
+  clearTimeout(streamTimeout);
+  try { reader.cancel(); } catch(_) {}
+  (function(){var _s=document.getElementById('stream-skeleton');if(_s)_s.remove();})();
+  const result = robustParse(raw);
+
+  // Récupérer les offres web (déjà en cours depuis le début)
+  var offresReelles = await offresPromise;
+  if (offresReelles && (!result.offres_concurrentes || !result.offres_concurrentes.length)) {
+    result.offres_concurrentes = offresReelles;
+  }
+
+  return result;
+}
+
+function buildResultSkeleton() {
+  document.getElementById('view-loading').style.display = 'none';
+  document.getElementById('view-result').style.display = 'block';
+  document.getElementById('view-result').innerHTML = `
+    <div class="stream-box" id="stream-skeleton">
+      <div class="stream-header">
+        <h2>⚡ Analyse en cours…</h2>
+        <p id="loading-status">🔍 Recherche des offres du marché en cours…</p>
+      </div>
+      <div class="stream-body">
+        <div class="steps-progress">
+          <div class="step-progress-item" id="sp1">
+            <div class="sp-icon">🔍</div>
+            <div>
+              <div class="sp-title">Recherche des offres temps réel</div>
+              <div class="sp-sub">Via Brave Search — données live</div>
+            </div>
+            <div class="sp-state" id="sp1-state"><div class="mini-spin"></div></div>
+          </div>
+          <div class="step-progress-item dim" id="sp2">
+            <div class="sp-icon">✍️</div>
+            <div>
+              <div class="sp-title">Génération du script</div>
+              <div class="sp-sub">Personnalisé pour votre profil</div>
+            </div>
+            <div class="sp-state" id="sp2-state">–</div>
+          </div>
+        </div>
+        <div style="background:var(--cream-mid);border-radius:var(--r-sm);padding:14px 18px;font-size:.78rem;font-family:monospace;color:var(--ink-soft);min-height:40px;max-height:120px;overflow:hidden;line-height:1.5;margin-top:16px;display:none" id="stream-raw"></div>
+      </div>
+    </div>`;
+  document.getElementById('prog-fill').style.width = '50%';
+  document.getElementById('prog-label').textContent = 'Étape 1/2 — Recherche en cours…';
+  document.getElementById('prog-time').textContent  = '⏱ ~8 sec';
+  document.getElementById('view-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Quand stream-raw commence à se remplir, montrer étape 2
+  const obs = new MutationObserver(() => {
+    const el = document.getElementById('sp1-state');
+    if (el) el.textContent = '✅';
+    const sp2 = document.getElementById('sp2');
+    if (sp2) sp2.classList.remove('dim');
+    const sp2s = document.getElementById('sp2-state');
+    if (sp2s) sp2s.innerHTML = '<div class="mini-spin"></div>';
+    document.getElementById('prog-fill').style.width = '85%';
+    document.getElementById('prog-label').textContent = 'Étape 2/2 — Rédaction du script…';
+    document.getElementById('prog-time').textContent  = '⏱ ~3 sec';
+    document.getElementById('stream-raw').style.display = 'block';
+    obs.disconnect();
+  });
+  setTimeout(() => {
+    const sr = document.getElementById('stream-raw');
+    if (sr) obs.observe(sr, { childList: true, characterData: true, subtree: true });
+  }, 100);
+}
+
+
+/* -----------------------------
+   FALLBACK
+--------------------------------- */
+function fallback() {
+  const a = S.ans;
+  return {
+    economie: '80–180€',
+    score: 'Moyen',
+    script: `Bonjour, je suis client(e) chez vous depuis ${(a.anciennete && a.anciennete > 0) ? a.anciennete + ' an' + (a.anciennete > 1 ? 's' : '') : 'plusieurs années'}. En comparant les offres actuelles du marché, je constate que des concurrents proposent les mêmes garanties à des tarifs significativement inférieurs au mien.\n\nCompte tenu de ma fidélité et de mon absence de sinistres récents, je souhaiterais que vous révisiez mon contrat à la baisse. Quelles options de fidélisation pouvez-vous me proposer ?\n\nSi vous ne pouvez pas vous aligner, je devrai malheureusement envisager de changer de prestataire. Je préfèrerais rester chez vous, mais pas à n'importe quel prix.`,
+    arguments: ['Fidélité client démontrée', 'Offres concurrentes moins chères à garanties équivalentes', 'Absence de sinistre récent → profil à risque faible', 'Loi Hamon / art. L224-33 : résiliation possible'],
+    offres_concurrentes: getFallbackOffres(S.cat),
+    alternatives: [],
+    timing: 'Mardi ou mercredi 10h–12h. Demandez directement le service fidélisation.',
+    attention: 'Ayez votre numéro de contrat et votre dernière facture sous la main avant d\'appeler.',
+  };
+}
+
+
+
+function getFallbackOffres(cat) {
+  var o = {
+    auto: [
+      { nom: "Maif", offre: "Bonus eco-conduite inclus", prix: "Ds 25€/mois", lien: "https://www.maif.fr/assurances-auto" },
+      { nom: "Direct Assurance", offre: "Remise 30% la 1ere annee", prix: "Ds 20€/mois", lien: "https://www.direct-assurance.fr" },
+      { nom: "Macif", offre: "Tarif fidelite + juridique", prix: "Ds 28€/mois", lien: "https://www.macif.fr/assurance/particuliers/assurances-auto" }
+    ],
+    habitation: [
+      { nom: "Luko", offre: "100% digital, sans engagement", prix: "Ds 5€/mois", lien: "https://www.luko.eu" },
+      { nom: "Maif", offre: "Multirisque + assistance 24h", prix: "Ds 9€/mois", lien: "https://www.maif.fr/assurances-habitation" },
+      { nom: "April", offre: "Sur-mesure, sans frais resiliation", prix: "Ds 8€/mois", lien: "https://www.april.fr" }
+    ],
+    telecom: [
+      { nom: "Free Mobile", offre: "5G 300Go inclus", prix: "19.99€/mois", lien: "https://www.free.fr/freemobile" },
+      { nom: "Bouygues", offre: "Serie speciale 100Go", prix: "12.99€/mois", lien: "https://www.bouyguestelecom.fr" },
+      { nom: "SFR", offre: "Offre fidelite -30%", prix: "Sur demande", lien: "https://www.sfr.fr" }
+    ],
+    energie: [
+      { nom: "TotalEnergies", offre: "Offre verte fixe 1 an", prix: "-8% vs tarif reglemente", lien: "https://www.totalenergies.fr/particuliers" },
+      { nom: "Engie", offre: "Garantie prix + bienvenue", prix: "-6% vs EDF", lien: "https://particuliers.engie.fr" },
+      { nom: "Octopus Energy", offre: "Tarif variable marche", prix: "Economies 10-15%", lien: "https://octopusenergy.fr" }
+    ]
+  };
+  return o[cat] || o.auto;
+}
+
+/* -----------------------------
+   AMÉLIORATION 2 : CHECKLIST PRÉ-APPEL
+   + DÉVERROUILLAGE DU SCRIPT
+--------------------------------- */
+let checksDone = new Set();
+
+function toggleCheck(i) {
+  const item = document.getElementById('chk' + i);
+  if (checksDone.has(i)) {
+    checksDone.delete(i);
+    item.classList.remove('done');
+    item.querySelector('.check-box').textContent = '';
+  } else {
+    checksDone.add(i);
+    item.classList.add('done');
+    item.querySelector('.check-box').textContent = '✓';
+  }
+  updateLock();
+}
+
+function updateLock() {
+  const wrap    = document.getElementById('checklist-wrap');
+  const script  = document.getElementById('script-content');
+  const overlay = document.getElementById('lock-overlay');
+  const total   = 3;
+  if (checksDone.size >= total) {
+    if(wrap)wrap.classList.add('complete');
+    if(script)script.classList.remove('locked');
+    if(overlay)overlay.classList.add('hidden');
+  } else {
+    if(wrap)wrap.classList.remove('complete');
+    if(script)script.classList.add('locked');
+    if(overlay)overlay.classList.remove('hidden');
+  }
+}
+
+
+/* -----------------------------
+   RENDER RESULT
+--------------------------------- */
+function sanitize(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function showResult(d) {
+  checksDone = new Set();
+  document.getElementById('view-loading').style.display = 'none';
+  document.getElementById('prog-fill').style.width  = '100%';
+  document.getElementById('prog-label').textContent = '✅ Script prêt !';
+  document.getElementById('prog-time').textContent  = '';
+
+  const scoreColors = { 'Élevé': '#a8f0d9', 'Moyen': '#fde68a', 'Faible': '#fca5a5' };
+  const sc = d.score || 'Moyen';
+
+  const argsHtml = (d.arguments || []).map((a, i) =>
+    `<div class="arg" style="animation-delay:${i * .08}s"><span class="arg-check">✓</span>${sanitize(a)}</div>`
+  ).join('');
+
+  const offres = d.offres_concurrentes || (d.alternatives ? d.alternatives.map(function(a){return {nom:a,offre:'',prix:'',lien:''};}) : []) || [];
+  const script = d.script || '';
+
+  document.getElementById('view-result').style.display = 'block';
+  document.getElementById('view-result').innerHTML = `
+    <div class="stream-box">
+      <div class="stream-header">
+        <h2>🎯 Votre script est prêt</h2>
+        <p>${d._error ? sanitize(d._error) : 'Personnalisé pour votre situation — prêt à lire au téléphone'}</p>
+        <div class="badges-row">
+          <div class="eco-badge">💰 ${sanitize(d.economie)}/an d'économie estimée</div>
+          <div id="score-gauge-container">${buildScoreGauge(sc)}</div>
+        </div>
+      </div>
+
+      <div class="stream-body">
+
+        <!-- CHECKLIST -->
+        <div class="checklist-wrap" id="checklist-wrap">
+          <div class="checklist-title">📋 Préparez votre appel — cochez les 3 cases pour débloquer le script</div>
+          <div class="check-items">
+            <div class="check-item" id="chk0" role="button" tabindex="0" onclick="toggleCheck(0)" onkeydown="if(event.key===\'Enter\'||event.key===\' \')toggleCheck(0)">
+              <div class="check-box"></div>
+              <div class="check-label">📄 J'ai mon numéro de contrat sous la main</div>
+            </div>
+            <div class="check-item" id="chk1" role="button" tabindex="0" onclick="toggleCheck(1)" onkeydown="if(event.key===\'Enter\'||event.key===\' \')toggleCheck(1)">
+              <div class="check-box"></div>
+              <div class="check-label">🧾 J'ai ma dernière facture ou avis d'échéance</div>
+            </div>
+            <div class="check-item" id="chk2" role="button" tabindex="0" onclick="toggleCheck(2)" onkeydown="if(event.key===\'Enter\'||event.key===\' \')toggleCheck(2)">
+              <div class="check-box"></div>
+              <div class="check-label">⏱ J'ai 10 minutes devant moi maintenant</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCRIPT -->
+        <div class="section">
+          <div class="section-title">Script à lire au téléphone</div>
+          <div class="script-gate">
+            <div class="script-content locked" id="script-content">${sanitize(script).replace(/\n/g,'<br>')}</div>
+            <div class="lock-overlay" id="lock-overlay">
+              <div class="lock-icon">🔒</div>
+              <div class="lock-msg">Cochez les 3 cases ci-dessus pour débloquer votre script</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ARGUMENTS -->
+        <div class="section">
+          <div class="section-title">Vos arguments clés</div>
+          <div class="args">${argsHtml}</div>
+        </div>
+
+        <!-- OFFRES CONCURRENTES -->
+        <div class="section">
+          <div class="section-title">Offres concurrentes à mentionner</div>
+          <div class="offres-grid" id="offres-grid"></div>
+        </div>
+
+        <!-- TIMING + VIGILANCE -->
+        <div class="info-grid">
+          <div class="info-box green" style="animation-delay:.2s">
+            <div class="info-box-label">⏰ Meilleur moment</div>
+            <div class="info-box-val">${sanitize(d.timing)}</div>
+          </div>
+          <div class="info-box gold" style="animation-delay:.3s">
+            <div class="info-box-label">⚠️ Point de vigilance</div>
+            <div class="info-box-val">${sanitize(d.attention)}</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="result-actions">
+        <button class="btn-primary" onclick="copyScript()">📋 Copier le script</button>
+        <button class="btn-outline" onclick="shareURL()">📤 Partager ce résultat</button>
+        <button class="btn-ghost" onclick="restart()">↩ Négocier un autre contrat</button>
+      </div>
+    </div>`;
+
+  document.getElementById('view-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Inject offres concurrentes
+  const grid = document.getElementById('offres-grid');
+  if (grid) {
+    grid.innerHTML = offres.map((o, i) => {
+      var hl = o.lien && o.lien.startsWith('http');
+      var ctaLabel = "Voir l’offre →";
+      if (hl) {
+        return '<a class="offre-card" href="' + o.lien + '" target="_blank" rel="noopener" style="animation-delay:' + (i*0.1) + 's">'
+          + '<div class="offre-nom">' + sanitize(o.nom) + '</div>'
+          + (o.offre ? '<div class="offre-desc">' + sanitize(o.offre) + '</div>' : '')
+          + (o.prix ? '<div class="offre-prix">' + sanitize(o.prix) + '</div>' : '')
+          + '<div class="offre-cta">' + ctaLabel + '</div>'
+          + '</a>';
+      } else {
+        return '<div class="offre-card" style="animation-delay:' + (i*0.1) + 's">'
+          + '<div class="offre-nom">' + sanitize(o.nom) + '</div>'
+          + (o.offre ? '<div class="offre-desc">' + sanitize(o.offre) + '</div>' : '')
+          + (o.prix ? '<div class="offre-prix">' + sanitize(o.prix) + '</div>' : '')
+          + '</div>';
+      }
+    }).join('');
+  }
+
+  // -- V3 : Injecter rappel timing
+  const rappelEl = document.getElementById('timing-zone');
+  if (rappelEl) rappelEl.innerHTML = buildRappelBlock(d.timing || '');
+
+  // -- V3 : Injecter email block
+  const emailZone = document.getElementById('email-zone');
+  if (emailZone) emailZone.innerHTML = buildEmailBlock();
+
+  // -- V3 : Injecter suivi résultat
+  const suiviZone = document.getElementById('suivi-zone');
+  if (suiviZone) suiviZone.innerHTML = buildSuiviBlock();
+
+  // -- V3 : Animer la jauge
+  animateNeedle(d.score || 'Moyen');
+
+  // -- V3 : Freemium teaser
+  const freemiumZone = document.getElementById('freemium-zone');
+  if (freemiumZone) freemiumZone.innerHTML = buildFreemiumTeaser();
+
+  // Store script for copy
+  window._currentScript = script;
+  _lastResult = d;
+
+  // Feature 2 : script adaptatif
+  var adaptZone = document.getElementById('adapt-zone');
+  if (adaptZone) adaptZone.innerHTML = buildAdaptBlock();
+
+  // Feature 4 : bouton résiliation
+  var resilZone = document.getElementById('resil-zone');
+  if (resilZone) resilZone.innerHTML = buildResilButton();
+}
+
+
+/* -----------------------------
+   ACTIONS
+--------------------------------- */
+function copyScript() {
+  const scriptEl = document.getElementById('script-content');
+  if (scriptEl && scriptEl.classList.contains('locked')) {
+    toast('🔒 Cochez les 3 cases pour débloquer le script');
+    return;
+  }
+  if (!window._currentScript) { toast('Script non disponible'); return; }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(window._currentScript)
+      .then(() => toast('✅ Script copié !'))
+      .catch(() => legacyCopyText(window._currentScript));
+  } else {
+    legacyCopyText(window._currentScript);
+  }
+}
+function legacyCopyText(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try { document.execCommand('copy'); toast('✅ Script copié !'); }
+  catch(e) { toast('Appuyez longuement sur le script pour copier'); }
+  document.body.removeChild(ta);
+}
+
+function shareURL() {
+  const siteUrl = 'https://negofacile.fr';
+  const text = `🎯 NégoFacile — J'ai généré un script de négociation personnalisé pour baisser mes factures !\nEssaie gratuitement : ${siteUrl}`;
+
+  // 1. Web Share API (Android natif — menu partage système)
+  if (navigator.share) {
+    navigator.share({ title: 'NégoFacile', text, url: siteUrl })
+      .then(() => toast('✅ Partagé !'))
+      .catch(() => fallbackShare(text));
+    return;
+  }
+
+  fallbackShare(text);
+}
+
+function fallbackShare(text) {
+  // 2. Clipboard API
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text)
+      .then(() => toast('📋 Message copié — collez-le où vous voulez !'))
+      .catch(() => legacyCopy(text));
+    return;
+  }
+  // 3. Legacy execCommand (vieux Android, WebView)
+  legacyCopy(text);
+}
+
+function legacyCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try {
+    document.execCommand('copy');
+    toast('📋 Message copié — collez-le où vous voulez !');
+  } catch(e) {
+    toast('💡 Partagez : negofacile.fr');
+  }
+  document.body.removeChild(ta);
+}
+
+function restart() {
+  if (globalController) { try { globalController.abort(); } catch(_) {} globalController = null; }
+  S = { cat: null, idx: 0, ans: {} };
+  isGenerating = false;
+  checksDone = new Set();
+  window._currentScript = null;
+  try { sessionStorage.removeItem('nego_result'); } catch(e) {}
+  document.getElementById('view-result').style.display  = 'none';
+  document.getElementById('view-loading').style.display = 'none';
+  document.getElementById('view-wizard').style.display  = 'none';
+  document.getElementById('view-cat').style.display     = 'block';
+  document.getElementById('hero').style.display         = 'block';
+  document.getElementById('progress-wrap').classList.remove('on');
+  document.getElementById('prog-fill').style.width = '0%';
+  // V3 : nettoyer vues supplémentaires
+  const vs = document.getElementById('view-success');
+  const ve = document.getElementById('view-escalade');
+  if (vs) { vs.style.display = 'none'; vs.innerHTML = ''; }
+  if (ve) { ve.style.display = 'none'; ve.innerHTML = ''; }
+  _lastResult = null; _savedEconomie = null;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+
+/* -----------------------------
+   INIT — charge depuis URL si partagé
+--------------------------------- */
+
+/* =======================================================
+   V3 — OPT 3 : SCORE GAUGE (jauge animée 0-100)
+======================================================= */
+function buildScoreGauge(score) {
+  const scoreMap = { 'Élevé': 82, 'Moyen': 52, 'Faible': 22 };
+  const val = scoreMap[score] || 52;
+  const titles = { 'Élevé': 'Négociateur confirmé', 'Moyen': 'Bon potentiel', 'Faible': 'Cas difficile' };
+  const colors = { 'Élevé': '#0D7A55', 'Moyen': '#D97706', 'Faible': '#DC2626' };
+  // Needle : de -85deg (0) à +85deg (100). Range = 170deg
+  const deg = -85 + (val / 100) * 170;
+  return `<div class="score-gauge-wrap">
+    <div class="score-gauge">
+      <div class="gauge-bg"></div>
+      <div class="gauge-mask"></div>
+      <div class="gauge-needle" id="gauge-needle" style="transform:rotate(-85deg)"></div>
+    </div>
+    <div class="gauge-score-label" style="color:${colors[score]||'#D97706'}">${val}/100</div>
+    <div class="gauge-score-sub">${titles[score]||'Bon potentiel'}</div>
+  </div>`;
+  // Animer après insertion (setTimeout côté appelant)
+}
+
+function animateNeedle(score) {
+  const scoreMap = { 'Élevé': 82, 'Moyen': 52, 'Faible': 22 };
+  const val = scoreMap[score] || 52;
+  const deg = -85 + (val / 100) * 170;
+  const el = document.getElementById('gauge-needle');
+  if (el) setTimeout(() => { el.style.transform = `rotate(${deg}deg)`; }, 100);
+}
+
+
+/* =======================================================
+   V3 — OPT 2 : EMAIL OPTIONNEL (collecte locale + simulation)
+======================================================= */
+let _userEmail = null;
+
+function buildEmailBlock() {
+  return `<div class="email-wrap" id="email-block">
+    <div class="email-label">📬 Recevez votre script par email + rappel avant votre prochaine échéance</div>
+    <div class="email-row">
+      <input type="email" class="email-inp" id="email-inp"
+        placeholder="votre@email.fr" autocomplete="email"
+        aria-label="Votre adresse email">
+      <button class="email-submit" onclick="submitEmail()">Envoyer →</button>
+    </div>
+    <div class="email-fine">🔒 Aucune pub, aucun partage. Uniquement votre script + 1 rappel annuel. Résiliable en 1 clic.</div>
+  </div>`;
+}
+
+function submitEmail() {
+  const inp = document.getElementById('email-inp');
+  const val = ((inp && inp.value) ? inp.value : '').trim();
+  if (!val || !val.includes('@')) { toast('Email invalide'); return; }
+  _userEmail = val;
+  // Stocker localement
+  try { localStorage.setItem('nego_email', val); } catch(_) {}
+  document.getElementById('email-block').innerHTML = `
+    <div class="email-label">✅ Email enregistré — votre script vous sera envoyé, et on vous rappellera avant votre prochaine échéance.</div>`;
+  toast('✅ Email enregistré !');
+  // Incrémenter compteur email (simulation liste)
+  updateEmailCount();
+}
+
+function updateEmailCount() {
+  try {
+    const n = parseInt(localStorage.getItem('nego_email_count') || '0') + 1;
+    localStorage.setItem('nego_email_count', n);
+  } catch(_) {}
+}
+
+
+/* =======================================================
+   V3 — OPT 4 : RAPPEL TIMING (notification / email)
+======================================================= */
+function buildRappelBlock(timing) {
+  const now = new Date();
+  const isGoodTime = now.getDay() >= 1 && now.getDay() <= 5 && now.getHours() >= 10 && now.getHours() < 12;
+  if (isGoodTime) return ''; // Pas de rappel si c'est déjà le bon moment
+
+  // Calculer le prochain créneau (mar-jeu 10h-12h)
+  const days = ['dim','lun','mar','mer','jeu','ven','sam'];
+  const d = now.getDay();
+  let nextCall = '';
+  if (d === 0 || d === 6 || now.getHours() >= 12) {
+    // Chercher prochain mardi, mercredi ou jeudi à 10h
+    const daysToNext = [2,3,4].map(t => { let diff = t - d; if (diff <= 0) diff += 7; return diff; }).sort()[0];
+    const nextDate = new Date(now);
+    nextDate.setDate(now.getDate() + daysToNext);
+    nextCall = `${days[nextDate.getDay()]} ${nextDate.getDate()}/${nextDate.getMonth()+1} à 10h`;
+  } else {
+    nextCall = 'demain à 10h';
+  }
+
+  window._nextCall = nextCall; // stocker sans passer par onclick string
+  return `<div class="rappel-wrap" id="rappel-block">
+    <div class="rappel-icon">⏰</div>
+    <div class="rappel-text">Mauvais moment pour appeler. <strong>Meilleur créneau : ${nextCall}</strong></div>
+    <button class="btn-rappel" id="btn-rappel" onclick="setRappel(window._nextCall)">Me rappeler</button>
+  </div>`;
+}
+
+function setRappel(creneau) {
+  const btn = document.getElementById('btn-rappel');
+  // 1. Tenter Web Push (si supporté)
+  if ('Notification' in window && Notification.permission !== 'denied') {
+    Notification.requestPermission().then(perm => {
+      if (perm === 'granted') {
+        new Notification('🎯 NégoFacile — Heure d\'appeler !', {
+          body: `Votre créneau idéal : ${creneau}. Votre script est prêt.`,
+          icon: '/favicon.ico'
+        });
+        if (btn) { btn.textContent = '✅ Rappel activé'; btn.disabled = true; }
+        toast('✅ Rappel activé !');
+        return;
+      }
+      fallbackRappel(creneau, btn);
+    });
+  } else {
+    fallbackRappel(creneau, btn);
+  }
+}
+
+function fallbackRappel(creneau, btn) {
+  // Fallback : copier créneau dans clipboard
+  const msg = `📅 NégoFacile — Rappel : appellez votre prestataire ${creneau} avec votre script. Allez sur negofacile.fr pour retrouver votre script.`;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(msg).then(() => {
+      if (btn) { btn.textContent = '✅ Copié !'; btn.disabled = true; }
+      toast('📋 Rappel copié — ajoutez-le à votre calendrier !');
+    }).catch(() => { if (btn) { btn.textContent = '✅ Noté !'; btn.disabled = true; } });
+  } else {
+    if (btn) { btn.textContent = '✅ Noté !'; btn.disabled = true; }
+    toast(`📅 Notez : ${creneau}`);
+  }
+}
+
+
+/* =======================================================
+   V3 — OPT 1 : SUIVI RÉSULTAT (l'appel a-t-il marché ?)
+======================================================= */
+let _lastResult = null;
+let _savedEconomie = null;
+
+function buildSuiviBlock() {
+  return `<div class="suivi-wrap" id="suivi-block">
+    <div class="suivi-title">📞 Avez-vous passé l'appel ?</div>
+    <div class="suivi-btns">
+      <button class="suivi-btn success" onclick="suiviResult('success')" role="button">✅ Oui, j'ai économisé !</button>
+      <button class="suivi-btn refused" onclick="suiviResult('refused')" role="button">😕 Ils ont refusé</button>
+      <button class="suivi-btn" onclick="suiviResult('later')" role="button">⏰ Pas encore</button>
+    </div>
+    <div class="eco-input-wrap" id="eco-input-wrap">
+      <input type="number" class="eco-amount-inp" id="eco-amount" placeholder="Ex : 140" min="1" max="9999"
+        aria-label="Montant économisé en euros">
+      <span style="font-size:.9rem;color:var(--ink-soft)">€ économisés</span>
+      <button class="eco-confirm-btn" onclick="confirmEconomie()">Valider 🎉</button>
+    </div>
+  </div>`;
+}
+
+function suiviResult(type) {
+  const block = document.getElementById('suivi-block');
+  if (type === 'success') {
+    document.getElementById('eco-input-wrap').classList.add('visible');
+    setTimeout(() => (function(){var _ea=document.getElementById('eco-amount');if(_ea)_ea.focus();})(), 100);
+  } else if (type === 'refused') {
+    // Afficher le mode escalade
+    showEscalade();
+    if (block) block.remove();
+  } else {
+    // "Pas encore" — activer rappel
+    if (block) block.innerHTML = `<div class="suivi-title">⏰ D'accord ! <span style="color:var(--ink-soft);font-size:.9rem;font-weight:400">On vous a préparé un rappel ci-dessus.</span></div>`;
+  }
+}
+
+function confirmEconomie() {
+  const val = parseInt((document.getElementById('eco-amount') ? document.getElementById('eco-amount').value : '0'));
+  if (!val || val < 1) { toast('Entrez un montant valide'); return; }
+  _savedEconomie = val;
+  // Enregistrer dans localStorage (stats globales simulées)
+  try {
+    const total = parseInt(localStorage.getItem('nego_total_eco') || '0') + val;
+    const count = parseInt(localStorage.getItem('nego_success_count') || '0') + 1;
+    localStorage.setItem('nego_total_eco', total);
+    localStorage.setItem('nego_success_count', count);
+  } catch(_) {}
+  updateHeroStats();
+  // Afficher page succès
+  showSuccessPage(val);
+}
+
+
+/* =======================================================
+   V3 — OPT 7 : PAGE SUCCÈS PARTAGEABLE
+======================================================= */
+function showSuccessPage(montant) {
+  const cat = CAT_LABELS[S.cat] || 'contrat';
+  const shareText = `🎯 J'ai économisé ${montant}€/an sur mon ${cat.replace(/[🚗🏠📱⚡]/g,'').trim()} grâce à NégoFacile !\nEssaie gratuitement en 5 min 👉 https://negofacile.fr`;
+
+  window._shareText = shareText; // stocker sans passer par onclick string
+  const el = document.getElementById('view-success');
+  el.style.display = 'block';
+  el.innerHTML = `<div class="success-box">
+    <div class="success-confetti">
+      <span class="success-emoji">🎉</span>
+      <div class="success-amount">${montant}€</div>
+      <div class="success-label">économisés par an !</div>
+      <div class="success-cat">sur votre ${cat.replace(/[🚗🏠📱⚡]/g,'').trim()}</div>
+    </div>
+    <div class="success-body">
+      <p class="success-msg">Bravo ! En quelques minutes, vous avez obtenu une réduction que la plupart des gens n'osent jamais demander. 💪</p>
+      <div class="success-share-title">Partagez votre succès — inspirez vos proches :</div>
+      <div class="success-share-card" id="share-card-text">"${shareText}"</div>
+      <div class="success-actions">
+        <button class="btn-primary" onclick="shareSuccess(window._shareText)">📤 Partager</button>
+        <button class="btn-outline" onclick="copyShareText(window._shareText)">📋 Copier</button>
+      </div>
+      <div style="margin-top:14px">
+        <button class="btn-ghost" onclick="restart()">↩ Négocier un autre contrat</button>
+      </div>
+    </div>
+  </div>`;
+
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Masquer le bloc résultat principal
+  document.getElementById('view-result').style.display = 'none';
+}
+
+function shareSuccess(text) {
+  if (!text) text = window._shareText || '';
+  if (navigator.share) {
+    navigator.share({ title: 'NégoFacile — Mon économie !', text, url: 'https://negofacile.fr' })
+      .then(() => toast('✅ Partagé !'))
+      .catch(() => copyToClip(text));
+  } else {
+    copyToClip(text);
+  }
+}
+
+function copyShareText(text) {
+  if (!text) text = window._shareText || '';
+  copyToClip(text);
+}
+
+function copyToClip(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => toast('📋 Texte copié — collez où vous voulez !'));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.cssText = 'position:fixed;opacity:0;';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try { document.execCommand('copy'); toast('📋 Copié !'); } catch(_) {}
+    document.body.removeChild(ta);
+  }
+}
+
+
+/* =======================================================
+   V3 — OPT 5 : MODE ESCALADE (refus au premier appel)
+======================================================= */
+const ESCALADE_SCRIPTS = {
+  auto: `Bonjour, j'ai appelé la semaine dernière pour négocier mon contrat auto et il m'a été indiqué qu'aucun geste commercial n'était possible.\n\nJ'ai depuis obtenu un devis chez [Concurrent] à [prix] pour les mêmes garanties. Je préfère rester chez vous, mais je dois prendre une décision aujourd'hui.\n\nPouvez-vous me transférer au service fidélisation ou à votre responsable ? Je souhaite donner une dernière chance à notre relation commerciale avant de résilier.`,
+  habitation: `Bonjour, suite à mon appel de la semaine dernière, j'ai finalisé mes comparaisons. [Concurrent] me propose les mêmes garanties à [prix€] de moins par an.\n\nConformément à la loi Hamon, je peux résilier à tout moment après 1 an de contrat. Je préfère éviter cette démarche — pouvez-vous me transmettre une offre de fidélisation écrite par email dans les 48h ?`,
+  telecom: `Bonjour, je rappelle suite à notre échange de la semaine dernière. J'ai reçu une offre de [Concurrent] à [prix€]/mois pour les mêmes services.\n\nJe vous rappelle que suite à la hausse tarifaire de [date], l'article L224-33 du Code de la consommation me donne le droit de résilier sans frais pendant 4 mois.\n\nJe vous laisse 24h pour me faire une contre-proposition, sinon j'active la résiliation.`,
+  energie: `Bonjour, je reviens vers vous après notre échange. J'ai contacté [Concurrent] qui me propose un tarif de [prix€] moins cher pour un contrat équivalent.\n\nLe changement de fournisseur est gratuit et prend 3 semaines. Je vous laisse l'opportunité de vous aligner — pouvez-vous me confirmer votre meilleure offre par email dans les 48h à [votre email] ?`,
+};
+
+const ESCALADE_TIPS = {
+  auto: [
+    { icon: '📝', tip: 'Demandez à parler au "service fidélisation" ou au "responsable commercial" — pas au service client standard.' },
+    { icon: '📧', tip: 'Envoyez une LRAR (ou email recommandé) avec votre demande — les conseillers au téléphone ont alors une trace et plus de marge.' },
+    { icon: '⚖️', tip: 'Mentionnez la loi Châtel : votre assureur doit vous prévenir 15 jours avant l\'échéance — s\'il ne l\'a pas fait, vous pouvez résilier immédiatement.' },
+  ],
+  habitation: [
+    { icon: '📝', tip: 'Envoyez votre demande par LRAR pour déclencher l\'obligation de réponse formelle.' },
+    { icon: '🏠', tip: 'La loi Hamon vous permet de résilier après 1 an, à tout moment, sans justification.' },
+    { icon: '📊', tip: 'Joignez le devis concurrent à votre courrier — ça force une réponse sérieuse.' },
+  ],
+  telecom: [
+    { icon: '⚖️', tip: 'Art. L224-33 : toute modification tarifaire vous donne droit de résilier sans frais pendant 4 mois.' },
+    { icon: '📧', tip: 'Signalez la non-résolution à l\'Arcep (arcep.fr) — mentionner ça au téléphone accélère souvent les choses.' },
+    { icon: '📱', tip: 'Portez votre numéro chez le concurrent directement — l\'opérateur actuel a 10 jours pour vous libérer.' },
+  ],
+  energie: [
+    { icon: '🔄', tip: 'Le changement de fournisseur est 100% gratuit et prend 3 semaines — pas de coupure.' },
+    { icon: '📊', tip: 'Consultez le comparateur officiel : energie-info.fr (outil gouvernemental sans pub).' },
+    { icon: '💡', tip: 'Si offre à prix fixe : bloquez le tarif maintenant, les prix remontent en hiver.' },
+  ],
+};
+
+function showEscalade() {
+  const cat = S.cat || 'auto';
+  const script = ESCALADE_SCRIPTS[cat] || ESCALADE_SCRIPTS.auto;
+  const tips = ESCALADE_TIPS[cat] || ESCALADE_TIPS.auto;
+
+  const el = document.getElementById('view-escalade');
+  el.style.display = 'block';
+  el.innerHTML = `<div class="escalade-box">
+    <div class="escalade-header">
+      <h2>😤 Ils ont refusé ? On escalade.</h2>
+      <p>Ce script de 2ème appel + les leviers légaux qui font vraiment bouger les choses.</p>
+    </div>
+    <div class="escalade-body">
+      <div class="section-title" style="margin-bottom:10px">Script 2ème appel — lire au téléphone</div>
+      <div class="escalade-script">${sanitize(script)}</div>
+      <div class="section-title" style="margin-bottom:10px">Vos leviers légaux</div>
+      <div class="escalade-tips">
+        ${tips.map(t => `<div class="escalade-tip"><span class="escalade-tip-icon">${t.icon}</span><span>${sanitize(t.tip)}</span></div>`).join('')}
+      </div>
+      <div class="result-actions">
+        <button class="btn-primary" onclick="copyEscalade()">📋 Copier ce script</button>
+        <button class="btn-outline" onclick="shareEscalade()">📤 Partager</button>
+        <button class="btn-ghost" onclick="restart()">↩ Changer de contrat</button>
+      </div>
+    </div>
+  </div>`;
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyEscalade() {
+  const cat = S.cat || 'auto';
+  copyToClip(ESCALADE_SCRIPTS[cat]);
+  toast('✅ Script d\'escalade copié !');
+}
+
+function shareEscalade() {
+  const text = `🔥 Après un premier refus, voici le script d\'escalade NégoFacile qui fait bouger les choses !\nhttps://negofacile.fr`;
+  if (navigator.share) navigator.share({ title: 'NégoFacile — Escalade', text }).catch(() => copyToClip(text));
+  else copyToClip(text);
+}
+
+
+/* =======================================================
+   V3 — OPT 6 : FREEMIUM PILL (teaser discret)
+======================================================= */
+function buildFreemiumTeaser() {
+  return `<div style="text-align:center;margin-top:10px">
+    <div style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#0D7A55,#15A36E);color:#fff;padding:6px 16px;border-radius:99px;font-size:.78rem;font-weight:600;letter-spacing:.02em">
+      ✨ NégoFacile+ arrive bientôt — Scripts illimités · Rappels · Suivi
+    </div>
+  </div>`;
+}
+
+
+/* =======================================================
+   V3 — STATS HERO DYNAMIQUES (opt 3 + social proof)
+======================================================= */
+function updateHeroStats() {
+  try {
+    const count = parseInt(localStorage.getItem('nego_success_count') || '0');
+    const total = parseInt(localStorage.getItem('nego_total_eco') || '0');
+    if (count > 0) {
+      const taux = Math.min(99, 70 + Math.round(count / 10));
+      const el = document.getElementById('stat-taux');
+      if (el) el.textContent = taux + '%';
+    }
+  } catch(_) {}
+}
+
+
+if (!loadFromURL()) {
+  // Démarrage normal, rien à faire
+}
+updateHeroStats();
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
