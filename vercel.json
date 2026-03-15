@@ -1,12 +1,12 @@
 {
   "version": 2,
   "builds": [
-    { "src": "negofacile-index-prod.html", "use": "@vercel/static" },
+    { "src": "negofacile-v3-1.html", "use": "@vercel/static" },
     { "src": "api/*.js", "use": "@vercel/node" }
   ],
   "routes": [
     { "src": "/api/search", "dest": "/api/search.js" },
     { "src": "/api/chat",   "dest": "/api/chat.js"   },
-    { "src": "/(.*)",       "dest": "/negofacile-index-prod.html" }
+    { "src": "/(.*)",       "dest": "/negofacile-v3-1.html" }
   ]
 }
